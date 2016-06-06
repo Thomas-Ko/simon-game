@@ -57,7 +57,10 @@ view = {
 	      	// $(".color").removeClass("green-bg-active red-bg-active yellow-bg-active blue-bg-active");
 	      	if(model.i<model.colorSequence.length){
 	      		var color = model.colorSequence[model.i];
+	      		var audio = document.getElementById(color+"Audio");
+				audio.play();
 	      		$("#"+color).addClass(color+"-bg-active"); 
+
 	      	}       
 	      	
 	      	model.i++;                     
