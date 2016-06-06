@@ -44,34 +44,38 @@ body {
 
 .color {
 	height:175px;
-	
 }
 
 #green {
-	background-color:green;
-	
-	
-    /*width:90px;*/
+	/*background-color:green;*/
     border-radius: 100% 0px 0 0;
+    cursor:pointer;
 }
 
 #red {
-	background-color:red;
-    /*width:90px;*/
+	/*background-color:red;*/
     border-radius: 0px 100% 0 0;
 }
 
 #yellow {
-	background-color:yellow;
-    /*width:90px;*/
+	/*background-color:yellow;*/
     border-radius: 0 0px 0 100%;
 }
 
 #blue {
-	background-color:blue;
-    /*width:90px;*/
+	/*background-color:blue;*/
     border-radius: 0px 0 100% 0;
 }
+
+.green-bg { background-color: #186839; }
+.red-bg { background-color: #cc2b19; }
+.yellow-bg { background-color: #c29d0a; }
+.blue-bg { background-color: #1c567d; }
+
+.green-bg-active { background-color:#2fd072; }
+.red-bg-active { background-color:#eb6e60; }
+.yellow-bg-active { background-color:#f4cf3e; }
+.blue-bg-active { background-color:#2e90d1; }
 
 #center {
 	height:175px;
@@ -82,4 +86,8 @@ body {
 	border: 9px solid #0d0d0d;
 	left:94px;
 	top:94px;
+}
+
+.active {
+	background-color: rgba(255,255,255,0.5);
 }
