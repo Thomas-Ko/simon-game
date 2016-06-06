@@ -8,6 +8,7 @@ model = {
 	strict: false,
 	count: null,
 	colorSequence: [],
+	i: 0,
 
 };
 
@@ -24,36 +25,46 @@ controller = {
 	},
 
 
-	// displayColor: function(color){
-	// 	setTimeout(function () {
- //        		$("#"+color).addClass(color+"-bg-active");
- //    		}, 1000);
+	displayColor: function(color){
+		setTimeout(function () {
+        		$("#"+color).addClass(color+"-bg-active");
+    		}, 1000);
 
-	// 	$("#"+color).removeClass(color+"-bg-active");
-	// }
+		$("#"+color).removeClass(color+"-bg-active");
+	}
 }; //end controller
 
 view = {
 
 	startButtonHandler : function(){
 		$("#start").on("click", function(){
-			controller.chooseColor();
-			controller.chooseColor();
-			controller.chooseColor();
-			controller.chooseColor();
+			model.i=0;
 			controller.chooseColor();
 			view.displayColorSequence();
 		});
 	},
 
 	displayColorSequence: function(){
-		for (i=0; i<model.colorSequence.length; i++){
-			
-			
-			console.log(model.colorSequence[i]);
-				
-			
-		}
+		
+		setTimeout(function () {    
+	      	$(".color").removeClass("green-bg-active red-bg-active yellow-bg-active blue-bg-active");
+	      	                       
+	   }, 1000);
+
+
+
+		setTimeout(function () {    
+	      	// $(".color").removeClass("green-bg-active red-bg-active yellow-bg-active blue-bg-active");
+	      	if(model.i<model.colorSequence.length){
+	      		var color = model.colorSequence[model.i];
+	      		$("#"+color).addClass(color+"-bg-active"); 
+	      	}       
+	      	
+	      	model.i++;                     
+	      	if (model.i <= model.colorSequence.length) {          
+	         	view.displayColorSequence();           
+	      	}                       
+	   }, 1500);
 			
 	},
 
