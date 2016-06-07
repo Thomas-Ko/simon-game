@@ -11,6 +11,7 @@ model = {
 	computer: {
 		colorSequence:[],
 		colorCount:0,
+		turnStatus: true,
 	},
 
 	// colorSequence: [],
@@ -19,6 +20,7 @@ model = {
 	player: {
 		colorCount:-1,
 		colorSequence:[],
+		turnStatus: false,
 	},
 
 	// playerMovesCount: -1,
@@ -43,6 +45,21 @@ controller = {
 		}
 	},
 
+	turn: {
+		getStatus : function(playerOrComp){
+			return model[playerOrComp].turnStatus;
+		},
+		switch: function(){
+			if (model.player.turnStatus===false){
+				model.player.turnStatus=true;
+				model.computer.turnStatus=false;
+			} else {
+				model.player.turnStatus=false;
+				model.computer.turnStatus=true;
+			}
+		}
+	},
+
 	colorSequence: {
 		get: function(){
 			return model.computer.colorSequence;
@@ -58,18 +75,15 @@ controller = {
 	},
 
 	checkColor: function(color){
-		console.log("check color star");
-		model.player.colorSequence.push(color);
-		console.log(color);
-		console.log(model.player.colorSequence);
-		console.log(model.player.colorCount);
-		console.log(model.player.colorSequence[model.player.colorCount]);
-		console.log(model.computer.colorSequence[model.player.colorCount]);
-		if (model.player.colorSequence[model.player.colorCount]===model.computer.colorSequence[model.player.colorCount]){
-			console.log("heck yeah");
-		} else {
+		if(model.turn.player){
+			model.player.colorSequence.push(color);
+			if (model.player.colorSequence[model.player.colorCount]===model.computer.colorSequence[model.player.colorCount]){
+				console.log("heck yeah");
+			} else {
 			console.log("nooo");
+			}
 		}
+		
 
 		console.log("check color end");
 	},
@@ -108,36 +122,25 @@ view = {
 	},
 
 	colorHandler: function(){
-		$(".color-outer").on("mousedown", ".color", function(){
-			// console.log("hello");
-			var color = $(this).attr('id');
-			var audio = document.getElementById(color+"Audio");
-			// console.log(color);
-			$(this).addClass(color+"-bg-active");
-			audio.play();
-			model.player.colorCount++;
-			controller.checkColor(color);
-
-	
-		});
-
-		// .on("mouseup",".color",function(){
-		// 	console.log("up");
-		// 	var color = $(this).attr('id');
-		// 	$(this).removeClass(color+"-bg-active");
-		// });
-
-		//when the mouse is released, the color turns off,
-		$(window).on("mouseup",function(){
-			$(".color").removeClass("green-bg-active red-bg-active yellow-bg-active blue-bg-active");
-		});
-
-		// $(".color-outer").on("mouseup", ".color", function(){
-		// 	var color = $(this).attr('id');
-		// 	$(this).removeClass(color+"-bg-active");
-		// });
+		//if player's turn is true
+		if(controller.turn.getStatus("player")){
+			
+			$(".color-outer").on("mousedown", ".color", function(){
+				var color = $(this).attr('id');
+				var audio = document.getElementById(color+"Audio");
+				$(this).addClass(color+"-bg-active");
+				audio.play();
+				model.player.colorCount++;
+				controller.checkColor(color);
 
 		
+			});
+
+			//when the mouse is released, the color turns off,
+			$(window).on("mouseup",function(){
+				$(".color").removeClass("green-bg-active red-bg-active yellow-bg-active blue-bg-active");
+			});
+		}
 	},
 
 	displayColorSequence: function(){
@@ -147,8 +150,6 @@ view = {
 	      	                       
 	   }, 1000);
 
-
-
 		setTimeout(function () {    
 	      	var colorCount = controller.colorCount.get();
 	      	var colorSequence = controller.colorSequence.get();
@@ -157,8 +158,10 @@ view = {
 	      		var audio = document.getElementById(color+"Audio");
 				audio.play();
 	      		$("#"+color).addClass(color+"-bg-active"); 
-
-	      	}       
+	      	} else if (colorCount===colorSequence.length){
+	      		controller.turn.switch();
+	      		view.colorHandler();
+	      	}     
 	      	
 	      	controller.colorCount.addTo();
 	      	//colorCount must be established again because of the addTo above
