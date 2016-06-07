@@ -83,26 +83,49 @@ controller = {
 			console.log("computer's color sequence is: " + model.computer.colorSequence);
 			console.log("model.player.colorSequence[model.player.colorCount] is: "+model.player.colorSequence[model.player.colorCount]);
 			console.log("model.computer.colorSequence[model.player.colorCount] is: "+ model.computer.colorSequence[model.player.colorCount]);
+
 			if (model.player.colorSequence[model.player.colorCount]===model.computer.colorSequence[model.player.colorCount]){
 				console.log("heck yeah");
+				
+				if(model.player.colorCount===model.computer.colorCount-2){
+					console.log("last turn");
+					controller.computerTurn("new");
+				}
 			} else {
 			console.log("nooo");
-			model.player.colorCount=-1;
-			model.player.colorSequence=[];
+			controller.computerTurn("repeat");
+			// model.player.colorCount=-1;
+			// model.computer.colorCount=0;
+			// model.player.colorSequence=[];
 			// controller.turn.switch();
-			model.player.turnStatus=false;
-			// view.colorHandler();
 
-			model.computer.colorCount=0;
+			// controller.newComputerTurn();
 
-			controller.colorSequence.addNewColorTo();
-			view.displayColorSequence();
+			// controller.colorSequence.addNewColorTo();
+			// view.displayColorSequence();
 			}
 		// }
+
 		
 
 		console.log("*****controller.checkColor end");
 		// console.log("============================");
+	},
+
+	computerTurn: function(repeatOrNew){
+		model.player.colorCount=-1;
+		model.computer.colorCount=0;
+		model.player.colorSequence=[];
+		controller.turn.switch();
+		if(repeatOrNew==="new"){
+			controller.colorSequence.addNewColorTo();
+		}
+		view.displayColorSequence();
+	},
+
+	redoComputerSequence: function(){
+		model.player.colorCount=-1;
+		model.computer.colorCount=0;
 	},
 
 	turnGameOnOrOff: function(){
