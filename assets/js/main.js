@@ -1,4 +1,5 @@
 model = {
+	turnedOn : false,
 	turn : {
 		computer: true,
 		player: false,
@@ -37,7 +38,7 @@ controller = {
 		get: function(){
 			return model.computer.colorCount;
 		},
-		resetToZero: function(){
+		reset: function(){
 			model.computer.colorCount=0;
 		}
 	},
@@ -73,6 +74,18 @@ controller = {
 		console.log("check color end");
 	},
 
+	turnGameOnOrOff: function(){
+		if (model.turnedOn===false){
+			model.turnedOn=true;
+
+		}
+	},
+
+	resetGame: function(){
+		model.computer.colorSequence=0;
+	},
+
+
 
 	displayColor: function(color){
 		setTimeout(function () {
@@ -87,22 +100,44 @@ view = {
 
 	startButtonHandler : function(){
 		$("#start").on("click", function(){
-			controller.colorCount.resetToZero();
+			controller.colorCount.reset();
+
 			controller.colorSequence.addNewColorTo();
 			view.displayColorSequence();
 		});
 	},
 
 	colorHandler: function(){
-		$(".color-outer").on("click", ".color", function(){
+		$(".color-outer").on("mousedown", ".color", function(){
 			// console.log("hello");
 			var color = $(this).attr('id');
 			var audio = document.getElementById(color+"Audio");
 			// console.log(color);
+			$(this).addClass(color+"-bg-active");
 			audio.play();
 			model.player.colorCount++;
 			controller.checkColor(color);
+
+	
 		});
+
+		// .on("mouseup",".color",function(){
+		// 	console.log("up");
+		// 	var color = $(this).attr('id');
+		// 	$(this).removeClass(color+"-bg-active");
+		// });
+
+		//when the mouse is released, the color turns off,
+		$(window).on("mouseup",function(){
+			$(".color").removeClass("green-bg-active red-bg-active yellow-bg-active blue-bg-active");
+		});
+
+		// $(".color-outer").on("mouseup", ".color", function(){
+		// 	var color = $(this).attr('id');
+		// 	$(this).removeClass(color+"-bg-active");
+		// });
+
+		
 	},
 
 	displayColorSequence: function(){
