@@ -49,14 +49,15 @@ controller = {
 		getStatus : function(playerOrComp){
 			return model[playerOrComp].turnStatus;
 		},
-		switch: function(){
-			if (model.player.turnStatus===false){
-				model.player.turnStatus=true;
-				model.computer.turnStatus=false;
-			} else if(model.player.turnStatus===true){
+		set: function(computerOrPlayer){
+			if(computerOrPlayer==="computer"){
 				model.player.turnStatus=false;
-				model.computer.turnStatus=true;
+				model.player.computer=true;
+			} else if(computerOrPlayer==="player"){
+				model.player.turnStatus=true;
+				model.player.computer=false;
 			}
+			
 		}
 	},
 
@@ -116,7 +117,7 @@ controller = {
 		model.player.colorCount=-1;
 		model.computer.colorCount=0;
 		model.player.colorSequence=[];
-		controller.turn.switch();
+		controller.turn.set("computer");
 		if(repeatOrNew==="new"){
 			controller.colorSequence.addNewColorTo();
 		}
@@ -136,7 +137,10 @@ controller = {
 	},
 
 	resetGame: function(){
-		model.computer.colorSequence=0;
+		model.computer.colorSequence=[];
+		model.computer.colorCount=0;
+		model.player.colorSequence=[];
+		model.player.colorCount=-1;
 	},
 
 
@@ -154,10 +158,9 @@ view = {
 
 	startButtonHandler : function(){
 		$("#start").on("click", function(){
-			controller.colorCount.reset();
-
-			controller.colorSequence.addNewColorTo();
-			view.displayColorSequence();
+			// model.computer.colorCount=0;
+			controller.resetGame();
+			controller.computerTurn("new");
 		});
 	},
 
@@ -209,7 +212,7 @@ view = {
 				audio.play();
 	      		$("#"+color).addClass(color+"-bg-active"); 
 	      	} else if (colorCount===colorSequence.length){
-	      		controller.turn.switch();
+	      		controller.turn.set("player");
 	      		// view.colorHandler();
 	      	}     
 	      	
