@@ -6,9 +6,22 @@ model = {
 	colors: ["green", "red", "yellow", "blue"],
 
 	strict: false,
-	count: null,
-	colorSequence: [],
-	colorCount: 0,
+	
+	computer: {
+		colorSequence:[],
+		colorCount:0,
+	},
+
+	// colorSequence: [],
+	// colorCount: 0,
+
+	player: {
+		colorCount:-1,
+		colorSequence:[],
+	},
+
+	// playerMovesCount: -1,
+	// playerColorSequence:[],
 
 };
 
@@ -19,19 +32,19 @@ controller = {
 
 	colorCount: {
 		addTo: function(){
-			model.colorCount++;
+			model.computer.colorCount++;
 		},
 		get: function(){
-			return model.colorCount;
+			return model.computer.colorCount;
 		},
 		resetToZero: function(){
-			model.colorCount=0;
+			model.computer.colorCount=0;
 		}
 	},
 
 	colorSequence: {
 		get: function(){
-			return model.colorSequence;
+			return model.computer.colorSequence;
 		},
 		addto: function(color){
 
@@ -39,15 +52,26 @@ controller = {
 		addNewColorTo: function(){
 			var num = Math.floor((Math.random() * 4));
 			var color = model.colors[num];
-			model.colorSequence.push(color);
+			model.computer.colorSequence.push(color);
 		}
 	},
 
-	// chooseColor: function(){
-	// 	var num = Math.floor((Math.random() * 4));
-	// 	var color = model.colors[num];
-	// 	model.colorSequence.push(color);
-	// },
+	checkColor: function(color){
+		console.log("check color star");
+		model.player.colorSequence.push(color);
+		console.log(color);
+		console.log(model.player.colorSequence);
+		console.log(model.player.colorCount);
+		console.log(model.player.colorSequence[model.player.colorCount]);
+		console.log(model.computer.colorSequence[model.player.colorCount]);
+		if (model.player.colorSequence[model.player.colorCount]===model.computer.colorSequence[model.player.colorCount]){
+			console.log("heck yeah");
+		} else {
+			console.log("nooo");
+		}
+
+		console.log("check color end");
+	},
 
 
 	displayColor: function(color){
@@ -66,6 +90,18 @@ view = {
 			controller.colorCount.resetToZero();
 			controller.colorSequence.addNewColorTo();
 			view.displayColorSequence();
+		});
+	},
+
+	colorHandler: function(){
+		$(".color-outer").on("click", ".color", function(){
+			// console.log("hello");
+			var color = $(this).attr('id');
+			var audio = document.getElementById(color+"Audio");
+			// console.log(color);
+			audio.play();
+			model.player.colorCount++;
+			controller.checkColor(color);
 		});
 	},
 
@@ -102,3 +138,4 @@ view = {
 };
 
 view.startButtonHandler();
+view.colorHandler();
