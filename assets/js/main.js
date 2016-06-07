@@ -5,6 +5,7 @@ model = {
 	// 	player: false,
 	// },
 	colors: ["green", "red", "yellow", "blue"],
+	count: 0,
 
 	// strict: false,
 	
@@ -31,6 +32,12 @@ model = {
 controller = {
 	init: function(){
 
+	},
+
+	count : {
+		get: function(){
+			return model.count;
+		}
 	},
 
 	colorCount: {
@@ -114,12 +121,15 @@ controller = {
 	},
 
 	computerTurn: function(repeatOrNew){
+		
 		model.player.colorCount=-1;
 		model.computer.colorCount=0;
 		model.player.colorSequence=[];
 		controller.turn.set("computer");
 		if(repeatOrNew==="new"){
 			controller.colorSequence.addNewColorTo();
+			model.count++;
+			view.displayCount();
 		}
 		view.displayColorSequence();
 	},
@@ -141,6 +151,7 @@ controller = {
 		model.computer.colorCount=0;
 		model.player.colorSequence=[];
 		model.player.colorCount=-1;
+		model.count=0;
 	},
 
 
@@ -195,22 +206,26 @@ view = {
 
 		// }
 	},
+	displayCount: function(){
+		var count = controller.count.get();
+		$("#count").text(count);
+	},
 
 	displayColorSequence: function(){
 		
-		setTimeout(function () {    
+		var x= setTimeout(function () {    
 	      	$(".color").removeClass("green-bg-active red-bg-active yellow-bg-active blue-bg-active");
 	      	                       
 	   }, 1000);
 
-		setTimeout(function () {    
+		var y =setTimeout(function () {    
 	      	var colorCount = controller.colorCount.get();
 	      	var colorSequence = controller.colorSequence.get();
 	      	if(colorCount<colorSequence.length){
 	      		var color = colorSequence[colorCount];
 	      		var audio = document.getElementById(color+"Audio");
 				audio.play();
-	      		$("#"+color).addClass(color+"-bg-active"); 
+	      		$("#"+color).addClass(color+"-bg-active");
 	      	} else if (colorCount===colorSequence.length){
 	      		controller.turn.set("player");
 	      		// view.colorHandler();
@@ -223,6 +238,11 @@ view = {
 	         	view.displayColorSequence();           
 	      	}                       
 	   }, 1500);
+
+		$("#start").on("click",function(){
+			clearTimeout(x);
+			clearTimeout(y);
+		});
 			
 	},
 
@@ -230,3 +250,4 @@ view = {
 
 view.startButtonHandler();
 view.colorHandler();
+view.displayCount();
