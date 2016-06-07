@@ -75,9 +75,14 @@ controller = {
 	},
 
 	checkColor: function(color){
-		console.log("controller.checkColor start");
+		console.log("*****controller.checkColor start");
 		// if(model.player.turnStatus){
 			model.player.colorSequence.push(color);
+			console.log("player count is "+model.player.colorCount);
+			console.log("player's color sequence is: " + model.player.colorSequence);
+			console.log("computer's color sequence is: " + model.computer.colorSequence);
+			console.log("model.player.colorSequence[model.player.colorCount] is: "+model.player.colorSequence[model.player.colorCount]);
+			console.log("model.computer.colorSequence[model.player.colorCount] is: "+ model.computer.colorSequence[model.player.colorCount]);
 			if (model.player.colorSequence[model.player.colorCount]===model.computer.colorSequence[model.player.colorCount]){
 				console.log("heck yeah");
 			} else {
@@ -96,7 +101,8 @@ controller = {
 		// }
 		
 
-		console.log("controller.checkColor end");
+		console.log("*****controller.checkColor end");
+		// console.log("============================");
 	},
 
 	turnGameOnOrOff: function(){
@@ -134,13 +140,14 @@ view = {
 
 	colorHandler: function(){
 		//if player's turn is true
-		
+			
 			
 			$(".color-outer").on("mousedown", ".color", function(){
+				console.log("============================");
+				console.log("*****colorHandler mousedown start");
 				var status = controller.turn.getStatus("player");
 				console.log("the status is "+model.player.turnStatus);
 				console.log("you pressed "+$(this).attr('id'));
-				console.log("---");
 
 				if(controller.turn.getStatus("player")){
 					var color = $(this).attr('id');
@@ -151,6 +158,8 @@ view = {
 					controller.checkColor(color);
 				}
 				$(this).unbind();
+				console.log("*****colorHandler mousedown end");
+				
 			});
 
 			//when the mouse is released, the color turns off,
