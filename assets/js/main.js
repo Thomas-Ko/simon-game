@@ -182,6 +182,7 @@ controller = {
 		model.player.colorSequence=[];
 		model.player.colorCount=-1;
 		model.count=0;
+		view.displayTurn("computer");
 	},
 
 
@@ -265,14 +266,27 @@ view = {
 	    $("#count").text("!!").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 		setTimeout(function () { 
 			view.displayCount();
+			view.displayTurn("computer");
 		}, 550);
 	},
 
 
 	displayCount: function(){
 		var count = controller.count.get();
+		if (count>=0 && count<10){
+			count="0"+count;
+		}
 		$("#count").text(count);
 	},
+
+	displayTurn: function(playerOrComp){
+		if(playerOrComp==="player"){
+			$("#turnDisplay").text("YOU");
+		} else if (playerOrComp==="computer"){
+			$("#turnDisplay").text("COMP");
+		}
+	},
+
 
 	displayColorSequence: function(){
 		
@@ -291,7 +305,11 @@ view = {
 	      		$("#"+color).addClass(color+"-bg-active");
 	      	} else if (colorCount===colorSequence.length){
 	      		controller.turn.set("player");
-	      		// view.colorHandler();
+	      		// setTimeout(function () {    
+	      			view.displayTurn("player");
+	      	                 
+	   			// }, 1000);
+	      		
 	      	}     
 	      	
 	      	controller.colorCount.addTo();

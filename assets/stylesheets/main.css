@@ -125,6 +125,7 @@ background: linear-gradient(to right, #DAD299 , #cbe7d1); /* W3C, IE 10+/ Edge, 
 #turnDisplay {
 	font-size:16px;
 	margin-top:10px;
+	height:26px;
 }
 
 .display-button: {
