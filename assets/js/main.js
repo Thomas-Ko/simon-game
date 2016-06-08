@@ -205,10 +205,13 @@ view = {
 		$("#strict").on("click",function(){
 			if(controller.strict.get()){
 				$("#strictDisplay").text("Off");
+				$("#strictLightDisplay").css("background-color", "#2e050b");
 				controller.strict.set("off");
 			} else if(!controller.strict.get()){
 				$("#strictDisplay").text("On");
 				controller.strict.set("on");
+				$("#strictLightDisplay").css("background-color", "#f10e2c");
+				
 			}
 		});
 	},
