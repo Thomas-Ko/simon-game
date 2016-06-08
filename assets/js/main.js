@@ -121,7 +121,13 @@ controller = {
 				}
 			} else {
 			console.log("nooo");
-			controller.computerTurn("repeat");
+			if(!model.strict){
+				controller.computerTurn("repeat");
+			} else if(model.strict){
+				controller.resetGame();
+				controller.computerTurn("new");
+			}
+			// controller.computerTurn("repeat");
 			// model.player.colorCount=-1;
 			// model.computer.colorCount=0;
 			// model.player.colorSequence=[];
