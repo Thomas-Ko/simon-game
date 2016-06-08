@@ -124,8 +124,12 @@ controller = {
 			if(!model.strict){
 				controller.computerTurn("repeat");
 			} else if(model.strict){
-				controller.resetGame();
+			setTimeout(function () {
+        		controller.resetGame();
 				controller.computerTurn("new");
+    		}, 500);
+
+
 			}
 			// controller.computerTurn("repeat");
 			// model.player.colorCount=-1;
