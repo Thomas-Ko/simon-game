@@ -1,5 +1,7 @@
 body {
 	margin-top:50px;
+	font-family: 'Roboto Mono', serif ;
+
 	-webkit-touch-callout: none; /* iOS Safari */
   	-webkit-user-select: none;   /* Chrome/Safari/Opera */
   	-khtml-user-select: none;    /* Konqueror */
@@ -87,11 +89,27 @@ body {
 	height:175px;
 	width:175px;
 	border-radius:100%;
-	background-color: #0d0d0d;
+	background-color: #ece9df;
 	position: absolute;
 	border: 9px solid #0d0d0d;
 	left:94px;
 	top:94px;
+	text-align:center;
+}
+
+#count1{
+	font-size:40px;
+	background-color:#2e050b;
+	width:74px;
+	margin: 0 auto;
+	padding:-8px;
+	line-height:45px;
+	margin-top:15px;
+	border-radius:2px;
+	border:2px solid #333;
+	color: #f10e2c;
+	font-family: 'Roboto Mono', serif ;
+	/*font-family: 'Orbitron', sans-serif;*/
 }
 
 .active {

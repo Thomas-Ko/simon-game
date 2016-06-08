@@ -120,9 +120,7 @@ controller = {
 					controller.computerTurn("new");
 				}
 			} else {
-			var audio = document.getElementById("errorAudio");
-					// $(this).addClass(color+"-bg-active");
-					audio.play();
+				view.errorSoundAndDisplay();
 			if(!model.strict){
 				controller.computerTurn("repeat");
 			} else if(model.strict){
@@ -253,6 +251,16 @@ view = {
 		var audio = document.getElementById(color+"Audio");
 		audio.play();
 	},
+
+	errorSoundAndDisplay: function(){
+		var audio = document.getElementById("errorAudio");
+		audio.play();	   
+	    $("#count").text("!!").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+		setTimeout(function () { 
+			view.displayCount();
+		}, 550);
+	},
+
 
 	displayCount: function(){
 		var count = controller.count.get();
