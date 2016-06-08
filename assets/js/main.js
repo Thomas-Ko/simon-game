@@ -6,6 +6,7 @@ model = {
 	// },
 	colors: ["green", "red", "yellow", "blue"],
 	count: 0,
+	strict: false,
 
 	// strict: false,
 	
@@ -65,6 +66,25 @@ controller = {
 				model.player.computer=false;
 			}
 			
+		}
+	},
+
+	strict: {
+		get: function(){
+			return model.strict;
+		},
+		set: function(onOrOff){
+			if(onOrOff==="on"){
+				model.strict=true;
+			} else if(onOrOff==="off"){
+				model.strict=false;
+			} 
+			// if(model.strict===false){
+			// 	model.strict=true;
+			// } else {
+			// 	model.strict=false;
+			// }
+			// }
 		}
 	},
 
@@ -175,6 +195,18 @@ view = {
 		});
 	},
 
+	strictButtonHandler: function(){
+		$("#strict").on("click",function(){
+			if(controller.strict.get()){
+				$("#strictDisplay").text("Off");
+				controller.strict.set("off");
+			} else if(!controller.strict.get()){
+				$("#strictDisplay").text("On");
+				controller.strict.set("on");
+			}
+		});
+	},
+
 	colorHandler: function(){
 		//if player's turn is true
 			
@@ -251,3 +283,4 @@ view = {
 view.startButtonHandler();
 view.colorHandler();
 view.displayCount();
+view.strictButtonHandler();
