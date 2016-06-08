@@ -114,13 +114,15 @@ controller = {
 
 			if (model.player.colorSequence[model.player.colorCount]===model.computer.colorSequence[model.player.colorCount]){
 				console.log("heck yeah");
-				
+				view.colorSound(color);
 				if(model.player.colorCount===model.computer.colorCount-2){
 					console.log("last turn");
 					controller.computerTurn("new");
 				}
 			} else {
-			console.log("nooo");
+			var audio = document.getElementById("errorAudio");
+					// $(this).addClass(color+"-bg-active");
+					audio.play();
 			if(!model.strict){
 				controller.computerTurn("repeat");
 			} else if(model.strict){
@@ -226,9 +228,11 @@ view = {
 
 				if(controller.turn.getStatus("player")){
 					var color = $(this).attr('id');
-					var audio = document.getElementById(color+"Audio");
+					
 					$(this).addClass(color+"-bg-active");
-					audio.play();
+					// view.colorSound(color);
+					// var audio = document.getElementById(color+"Audio");
+					// audio.play();
 					model.player.colorCount++;
 					controller.checkColor(color);
 				}
@@ -244,6 +248,12 @@ view = {
 
 		// }
 	},
+
+	colorSound: function(color){
+		var audio = document.getElementById(color+"Audio");
+		audio.play();
+	},
+
 	displayCount: function(){
 		var count = controller.count.get();
 		$("#count").text(count);
