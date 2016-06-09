@@ -20,7 +20,9 @@ h1 {
 	text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
 }
 
-
+/*============================
+	GAME CONTAINER AND TILES
+============================*/
 .game-container {
 	width:405px;
 	border-radius:100%;
@@ -55,21 +57,10 @@ h1 {
 	box-shadow: inset 0px 0px 50px 0px rgba(0,0,0,0.2);
 }
 
-#green {
-    border-radius: 100% 0px 0 0;
-}
-
-#red {
-    border-radius: 0px 100% 0 0;
-}
-
-#yellow {
-    border-radius: 0 0px 0 100%;
-}
-
-#blue {
-    border-radius: 0px 0 100% 0;
-}
+#green {border-radius: 100% 0px 0 0;}
+#red {border-radius: 0px 100% 0 0;}
+#yellow {border-radius: 0 0px 0 100%;}
+#blue {border-radius: 0px 0 100% 0;}
 
 /*background colors*/
 .green-bg { background-color: #186839; }
@@ -84,7 +75,7 @@ h1 {
 
 
 /*==================
-	Center Content
+	CENTER CONTENT
 ==================*/
 #center {
 	height:175px;
@@ -170,9 +161,42 @@ h1 {
 	border-bottom:none;
 }
 
-/*====footer===*/
+/*==================
+	FOOTER
+==================*/
 footer {
 	margin-top:40px;
 	text-align:center;
 	font-family: 'Nobile', serif;
+}
+
+/*==================
+	MEDIA QUERIES
+==================*/
+@media (max-width:480px){
+	
+	body{
+		margin-top:8px;
+	}
+
+	h1{
+		font-size:50px;
+	}
+
+	.game-container {
+		width:275px;
+	}
+
+	.color {
+		height:110px;
+	}
+
+	#center {
+		left:30px;
+		top:268px;
+	}
+
+	footer {
+		margin-top:210px;
+	}
 }
