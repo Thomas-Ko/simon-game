@@ -46,61 +46,55 @@
   <div class=" container game-container">
 
       <div class="row">
+         
          <div class="col-xs-6 top left color-outer">
             <div class="color green-bg" id="green" >
-               <div class="inner-color">
-                  
-               </div>
-               
+               <div class="inner-color"></div>
             </div>
          </div>
 
          <div class="col-xs-6 top right color-outer">
-            <div class="color red-bg" id="red">
-              
-            </div>
+            <div class="color red-bg" id="red"></div>
          </div>
 
          <div class="col-xs-6 bottom left color-outer">
-            <div class="color yellow-bg" id="yellow">
-              
-            </div>
+            <div class="color yellow-bg" id="yellow"></div>
          </div>
 
          <div class="col-xs-6 bottom right color-outer">
-            <div class="color blue-bg" id="blue">
-               
-            </div>
+            <div class="color blue-bg" id="blue"></div>
          </div>
 
-      </div>
+      </div> <!-- /.row -->
 
       <div id="center">
-         <div class="center-display" id="countDisplay"><span id="count">00</span></div>
+
+         <div class="center-display" id="countDisplay"><span id="count"></span></div>
          <div>COUNT</div>
          <div id="strictLightDisplay"></div>
          <div class="center-display" id="turnDisplayContainer"><span id="turnDisplay"></span></div>
          <div>TURN</div>
 
-
          <div class="display-button" id="start">
-            <i class="fa fa-refresh" aria-hidden="true"></i>
+            <i class="fa fa-power-off" aria-hidden="true"></i>
          </div>
 
          <div id="strictContainer">
             <div class="display-button" id="strict"></div>
             <div id="strictHeading">STRICT</div>
          </div>
-      </div>
+
+      </div> <!-- /.center -->
         
-  </div>
+  </div> <!-- ./game-container -->
 
   <div class="container">
       <footer>
          Created By: Thomas Kolodziejczak
       </footer>
   </div>
-
+   
+   <!-- Audio -->
    <audio id="greenAudio" src="assets/audio/green.mp3" type="audio/mpeg"></audio>
    <audio id="redAudio" src="assets/audio/red.mp3" type="audio/mpeg"></audio>
    <audio id="yellowAudio" src="assets/audio/yellow.mp3" type="audio/mpeg"></audio>
