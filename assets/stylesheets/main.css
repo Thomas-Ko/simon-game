@@ -64,7 +64,7 @@ background: linear-gradient(to right, #DAD299 , #cbe7d1); /* W3C, IE 10+/ Edge, 
 #green {
 	/*background-color:green;*/
     border-radius: 100% 0px 0 0;
-    cursor:pointer;
+    /*cursor:pointer;*/
 }
 
 #red {
@@ -80,6 +80,10 @@ background: linear-gradient(to right, #DAD299 , #cbe7d1); /* W3C, IE 10+/ Edge, 
 #blue {
 	/*background-color:blue;*/
     border-radius: 0px 0 100% 0;
+}
+
+.cursor {
+	cursor:pointer;
 }
 
 .green-bg { background-color: #186839; }
@@ -122,7 +126,7 @@ background: linear-gradient(to right, #DAD299 , #cbe7d1); /* W3C, IE 10+/ Edge, 
 	line-height:45px;
 	margin-top:20px;
 }
-#turnDisplay {
+#turnDisplayContainer {
 	font-size:16px;
 	margin-top:10px;
 	height:26px;

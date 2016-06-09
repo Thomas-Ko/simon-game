@@ -7,6 +7,7 @@ model = {
 	colors: ["green", "red", "yellow", "blue"],
 	count: 0,
 	strict: false,
+	winningNumber:20,
 
 	// strict: false,
 	
@@ -115,8 +116,16 @@ controller = {
 			if (model.player.colorSequence[model.player.colorCount]===model.computer.colorSequence[model.player.colorCount]){
 				console.log("heck yeah");
 				view.colorSound(color);
-				if(model.player.colorCount===model.computer.colorCount-2){
+				if(model.player.colorCount===model.computer.colorCount-2 && model.player.colorCount===model.winningNumber-1){
 					console.log("last turn");
+					console.log(model.computer.colorCount-2);
+					view.winnerSoundAndDisplay(color);
+					setTimeout(function(){
+						controller.resetGame();
+						controller.computerTurn("new");
+					},1300);
+					
+				} else if(model.player.colorCount===model.computer.colorCount-2){
 					controller.computerTurn("new");
 				}
 			} else {
@@ -151,11 +160,12 @@ controller = {
 	},
 
 	computerTurn: function(repeatOrNew){
-		
+		view.colorCursor.remove();
 		model.player.colorCount=-1;
 		model.computer.colorCount=0;
 		model.player.colorSequence=[];
 		controller.turn.set("computer");
+		view.displayTurn("computer");
 		if(repeatOrNew==="new"){
 			controller.colorSequence.addNewColorTo();
 			model.count++;
@@ -177,6 +187,7 @@ controller = {
 	},
 
 	resetGame: function(){
+		view.colorCursor.remove();
 		model.computer.colorSequence=[];
 		model.computer.colorCount=0;
 		model.player.colorSequence=[];
@@ -222,8 +233,6 @@ view = {
 	},
 
 	colorHandler: function(){
-		//if player's turn is true
-			
 			
 			$(".color-outer").on("mousedown", ".color", function(){
 				console.log("============================");
@@ -233,6 +242,7 @@ view = {
 				console.log("you pressed "+$(this).attr('id'));
 
 				if(controller.turn.getStatus("player")){
+
 					var color = $(this).attr('id');
 					
 					$(this).addClass(color+"-bg-active");
@@ -255,6 +265,15 @@ view = {
 		// }
 	},
 
+	colorCursor: {
+		add: function(){
+			$("#green, #red, #blue, #yellow").css("cursor", "pointer");
+		},
+		remove: function(){
+			$("#green, #red, #blue, #yellow").css("cursor", "default");
+		}
+	},
+
 	colorSound: function(color){
 		var audio = document.getElementById(color+"Audio");
 		audio.play();
@@ -268,6 +287,63 @@ view = {
 			view.displayCount();
 			view.displayTurn("computer");
 		}, 550);
+	},
+
+	winnerSoundAndDisplay : function(color){
+		var colorArray = ["green","red","yellow","blue"];
+		var index = colorArray.indexOf(color);
+		colorArray.splice(index,1);
+		var audio1 = document.getElementById(color+"Audio");
+		var audio2 = document.getElementById(colorArray[0]+"Audio");
+		var audio3 = document.getElementById(colorArray[1]+"Audio");
+		var audio4 = document.getElementById(colorArray[2]+"Audio");
+
+		console.log(audio1+","+audio2+","+audio3+","+audio4);
+		var audio = document.getElementById("winnerAudio");
+		// audio.play();	
+	   	setTimeout(function () {    
+	      	$("#red").addClass("red-bg-active");
+	      	$("#green").addClass("green-bg-active");
+	      	$("#yellow").addClass("yellow-bg-active");
+	      	$("#blue").addClass("blue-bg-active");                       
+	   	});
+	   	setTimeout(function () {    
+	      	$("#red").removeClass("red-bg-active");
+	      	$("#green").removeClass("green-bg-active");
+	      	$("#yellow").removeClass("yellow-bg-active");
+	      	$("#blue").removeClass("blue-bg-active");	  
+	      	audio1.play();                      
+	   	},200 );
+	   	setTimeout(function () {    
+	      	$("#red").addClass("red-bg-active");
+	      	$("#green").addClass("green-bg-active");
+	      	$("#yellow").addClass("yellow-bg-active");
+	      	$("#blue").addClass("blue-bg-active");  
+	      	audio2.play();                     
+	   	},400 );
+	   	setTimeout(function () {    
+	      	$("#red").removeClass("red-bg-active");
+	      	$("#green").removeClass("green-bg-active");
+	      	$("#yellow").removeClass("yellow-bg-active");
+	      	$("#blue").removeClass("blue-bg-active");
+	      	audio3.play();                       
+	   	},600 );
+	   	setTimeout(function () {    
+	      	$("#red").addClass("red-bg-active");
+	      	$("#green").addClass("green-bg-active");
+	      	$("#yellow").addClass("yellow-bg-active");
+	      	$("#blue").addClass("blue-bg-active");  
+	      	audio4.play();                       
+	   	},800 );
+	   	setTimeout(function () {    
+	      	$("#red").removeClass("red-bg-active");
+	      	$("#green").removeClass("green-bg-active");
+	      	$("#yellow").removeClass("yellow-bg-active");
+	      	$("#blue").removeClass("blue-bg-active");
+	      	                       
+	   	},1000 );
+		$("#count").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+		$("#turnDisplay").text("WINNER").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 	},
 
 
@@ -307,6 +383,7 @@ view = {
 	      		controller.turn.set("player");
 	      		// setTimeout(function () {    
 	      			view.displayTurn("player");
+	      			view.colorCursor.add();
 	      	                 
 	   			// }, 1000);
 	      		
